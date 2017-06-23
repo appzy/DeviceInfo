@@ -19,26 +19,158 @@ import java.util.List;
 /**
  * Created by guyuepeng on 2017/6/21.
  * Email: gu.yuepeng@foxmail.com
+ *
+ * 具体每个方法获取的值的含义以及返回值区间见内部类SimCard.java中的注释
  */
 
 public class SimInfoCollector extends BaseDeviceInfoCollector {
-//    private static final String NETWORK_OPERATOR_NAME = "networkOperatorName";
-//    private static final String NETWORK_TYPE = "networkType";
-//    private static final String IS_NETWORK_ROAMING = "isNetworkRoaming";
-//    private static final String DATA_STATE = "dataState";
-//    private static final String PHONE_TYPE = "phoneType";
-//    private static final String SIM_STATE = "SimState";//sim卡状态
-//    private static final String SIM_SERIAL_NUMBER = "SimSerialNumber";//手机卡序列号:898xxxxxxxxxxxxxxx
-//    private static final String SIM_COUNTRY_ISO = "SimCountryIso";//手机卡国家简称：cn
-//    private static final String SIM_OPERATOR = "SimOperator";//手机卡运营商：46001
-//    private static final String SIM_OPERATOR_NAME = "SimOperatorName";//手机卡运营商名称：中国联通
-//    private static final String SIM_IMSI = "imsi";//手机卡的IMSI：4600179xxxxxxxx
 
-    private static final String FUN_SIM_STATE = "getSimState";
-    private static final String FUN_SIM_SERIAL_NUMBER = "getSimSerialNumber";
-    private static final String FUN_SIM_COUNTRY_ISO = "getSimCountryIso";
-    private static final String FUN_SIM_OPERATOR = "getSimOperator";
-    private static final String FUN_SIM_IMSI = "getSubscriberId";
+    private class SimCard {
+        /**
+         * 按照字母次序的current registered operator(当前已注册的用户)的名字<br/>
+         * 注意：仅当用户已在网络注册时有效。<br/>
+         * 在CDMA网络中结果也许不可靠。
+         */
+        private String networkOperatorName;
+        /**
+         * 当前使用的网络类型：<br/>
+         * NETWORK_TYPE_UNKNOWN 网络类型未知 0<br/>
+         * NETWORK_TYPE_GPRS GPRS网络 1<br/>
+         * NETWORK_TYPE_EDGE EDGE网络 2<br/>
+         * NETWORK_TYPE_UMTS UMTS网络 3<br/>
+         * NETWORK_TYPE_HSDPA HSDPA网络 8<br/>
+         * NETWORK_TYPE_HSUPA HSUPA网络 9<br/>
+         * NETWORK_TYPE_HSPA HSPA网络 10<br/>
+         * NETWORK_TYPE_CDMA CDMA网络,IS95A 或 IS95B. 4<br/>
+         * NETWORK_TYPE_EVDO_0 EVDO网络, revision 0. 5<br/>
+         * NETWORK_TYPE_EVDO_A EVDO网络, revision A. 6<br/>
+         * NETWORK_TYPE_1xRTT 1xRTT网络 7<br/>
+         * 在中国，联通的3G为UMTS或HSDPA，移动和联通的2G为GPRS或EGDE，电信的2G为CDMA，电信的3G为EVDO<br/>
+         */
+        private String networkType;
+        /**
+         * 是否漫游:(在GSM用途下)
+         */
+        private String isNetworkRoaming;
+        /**
+         * 获取数据连接状态<br/>
+         * DATA_CONNECTED 数据连接状态：已连接<br/>
+         * DATA_CONNECTING 数据连接状态：正在连接<br/>
+         * DATA_DISCONNECTED 数据连接状态：断开<br/>
+         * DATA_SUSPENDED 数据连接状态：暂停<br/>
+         */
+        private String dataState;
+        /**
+         * 返回移动终端的类型：<br/>
+         * PHONE_TYPE_CDMA 手机制式为CDMA，电信<br/>
+         * PHONE_TYPE_GSM 手机制式为GSM，移动和联通<br/>
+         * PHONE_TYPE_NONE 手机制式未知<br/>
+         */
+        private String phoneType;
+        private String simState;//sim卡状态
+        private String simSerialNumber;//手机卡序列号:898xxxxxxxxxxxxxxx
+        private String simCountryIso;//手机卡国家简称：cn
+        private String simOperator;//手机卡运营商：46001
+        private String simOperatorName;//手机卡运营商名称：中国联通
+        private String imsi;//手机卡的IMSI：4600179xxxxxxxx
+
+
+        public String getNetworkOperatorName() {
+            return networkOperatorName;
+        }
+
+        public void setNetworkOperatorName(String networkOperatorName) {
+            this.networkOperatorName = networkOperatorName;
+        }
+
+        public String getNetworkType() {
+            return networkType;
+        }
+
+        public void setNetworkType(String networkType) {
+            this.networkType = networkType;
+        }
+
+        public String getIsNetworkRoaming() {
+            return isNetworkRoaming;
+        }
+
+        public void setIsNetworkRoaming(String isNetworkRoaming) {
+            this.isNetworkRoaming = isNetworkRoaming;
+        }
+
+        public String getDataState() {
+            return dataState;
+        }
+
+        public void setDataState(String dataState) {
+            this.dataState = dataState;
+        }
+
+        public String getPhoneType() {
+            return phoneType;
+        }
+
+        public void setPhoneType(String phoneType) {
+            this.phoneType = phoneType;
+        }
+
+        public String getSimState() {
+            return simState;
+        }
+
+        public void setSimState(String simState) {
+            this.simState = simState;
+        }
+
+        public String getSimSerialNumber() {
+            return simSerialNumber;
+        }
+
+        public void setSimSerialNumber(String simSerialNumber) {
+            this.simSerialNumber = simSerialNumber;
+        }
+
+        public String getSimCountryIso() {
+            return simCountryIso;
+        }
+
+        public void setSimCountryIso(String simCountryIso) {
+            this.simCountryIso = simCountryIso;
+        }
+
+        public String getSimOperator() {
+            return simOperator;
+        }
+
+        public void setSimOperator(String simOperator) {
+            this.simOperator = simOperator;
+        }
+
+        public String getSimOperatorName() {
+            return simOperatorName;
+        }
+
+        public void setSimOperatorName(String simOperatorName) {
+            this.simOperatorName = simOperatorName;
+        }
+
+        public String getImsi() {
+            return imsi;
+        }
+
+        public void setImsi(String imsi) {
+            this.imsi = imsi;
+        }
+
+    }
+
+    private static final String FUN_SIM_STATE = "getSimState";//sim卡状态
+    private static final String FUN_SIM_SERIAL_NUMBER = "getSimSerialNumber";//手机卡序列号:898xxxxxxxxxxxxxxx
+    private static final String FUN_SIM_COUNTRY_ISO = "getSimCountryIso";//手机卡国家简称：cn
+    private static final String FUN_SIM_OPERATOR = "getSimOperator";//手机卡运营商：46001
+    private static final String FUN_SIM_IMSI = "getSubscriberId";//手机卡的IMSI：4600179xxxxxxxx
+
     private static final String FUN_NETWORK_TYPE = "getNetworkType";
     private static final String FUN_NETWORK_OPERATOR_NAME = "getNetworkOperatorName";
     private static final String FUN_PHONE_TYPE = "getPhoneType";
@@ -149,110 +281,5 @@ public class SimInfoCollector extends BaseDeviceInfoCollector {
     public String getJsonInfo() {
         return new Gson().toJson(mSimCards);
     }
-
-    private class SimCard {
-        private String networkOperatorName;
-        private String networkType;
-        private String isNetworkRoaming;
-        private String dataState;
-        private String phoneType;
-        private String simState;//sim卡状态
-        private String simSerialNumber;//手机卡序列号:898xxxxxxxxxxxxxxx
-        private String simCountryIso;//手机卡国家简称：cn
-        private String simOperator;//手机卡运营商：46001
-        private String simOperatorName;//手机卡运营商名称：中国联通
-        private String imsi;//手机卡的IMSI：4600179xxxxxxxx
-
-
-        public String getNetworkOperatorName() {
-            return networkOperatorName;
-        }
-
-        public void setNetworkOperatorName(String networkOperatorName) {
-            this.networkOperatorName = networkOperatorName;
-        }
-
-        public String getNetworkType() {
-            return networkType;
-        }
-
-        public void setNetworkType(String networkType) {
-            this.networkType = networkType;
-        }
-
-        public String getIsNetworkRoaming() {
-            return isNetworkRoaming;
-        }
-
-        public void setIsNetworkRoaming(String isNetworkRoaming) {
-            this.isNetworkRoaming = isNetworkRoaming;
-        }
-
-        public String getDataState() {
-            return dataState;
-        }
-
-        public void setDataState(String dataState) {
-            this.dataState = dataState;
-        }
-
-        public String getPhoneType() {
-            return phoneType;
-        }
-
-        public void setPhoneType(String phoneType) {
-            this.phoneType = phoneType;
-        }
-
-        public String getSimState() {
-            return simState;
-        }
-
-        public void setSimState(String simState) {
-            this.simState = simState;
-        }
-
-        public String getSimSerialNumber() {
-            return simSerialNumber;
-        }
-
-        public void setSimSerialNumber(String simSerialNumber) {
-            this.simSerialNumber = simSerialNumber;
-        }
-
-        public String getSimCountryIso() {
-            return simCountryIso;
-        }
-
-        public void setSimCountryIso(String simCountryIso) {
-            this.simCountryIso = simCountryIso;
-        }
-
-        public String getSimOperator() {
-            return simOperator;
-        }
-
-        public void setSimOperator(String simOperator) {
-            this.simOperator = simOperator;
-        }
-
-        public String getSimOperatorName() {
-            return simOperatorName;
-        }
-
-        public void setSimOperatorName(String simOperatorName) {
-            this.simOperatorName = simOperatorName;
-        }
-
-        public String getImsi() {
-            return imsi;
-        }
-
-        public void setImsi(String imsi) {
-            this.imsi = imsi;
-        }
-
-    }
-
 
 }

@@ -42,18 +42,23 @@
     }]
 }
 ```
-- 当然也可以通过重写每个Collector的`public String getJsonInfo();`以自定义json的输出内容
+- 当然也可以通过重写每个Collector的`public String getJsonInfo();`以自定义Json的输出内容
 
-## 目前可获取的设备信息
+## 目前可获取的设备信息（库内已支持的，可自由拓展）
 
-- Sim卡信息
-- Board主板信息
+- Andorid设备基本信息（PhoneBasicInfoCollector）
+- Sim卡信息（SimInfoCollector）
+	- 同时识别多张Sim卡	
+- 主板信息（BoardInfoCollector）
+- Cpu信息（CpuInfoCollector）
 
 ## 如何使用
 
 ### 添加依赖库
 
 [![](https://jitpack.io/v/guyuepeng/DeviceInfo.svg)](https://jitpack.io/#guyuepeng/DeviceInfo)
+
+> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.1`，并不是 ~*xxx*~
 
 #### Gradle
 
@@ -71,7 +76,7 @@
 
 	```
 		dependencies {
-	        	compile 'com.github.guyuepeng:DeviceInfo:v1.0'
+	        	compile 'com.github.guyuepeng:DeviceInfo:xxx'
 		}
 	```
 	
@@ -93,10 +98,11 @@
 		<dependency>
 		    <groupId>com.github.guyuepeng</groupId>
 		    <artifactId>DeviceInfo</artifactId>
-		    <version>v1.0</version>
+		    <version>xxx</version>
 		</dependency>
 
 	```
+	
 
 ### 使用方法
 
@@ -125,7 +131,7 @@ DeviceInfoManager.NewInstance(this)
 - `void onAllDone(DeviceInfoManager mDeviceInfoManager);`通过addCollector(...)方法添加到Manager中的所有Collector均完成采集动作后回调，需要说明的是，不一定是全部采集成功了，只是采集动作完成了
 - `void onAutoAllDone(DeviceInfoManager mDeviceInfoManager);`当抛开需要手动收集的收集器，其他的收集器全部完成采集动作后回调
 
-> 注意：`onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo)`中也可能存在数据，即`mCollector.getJsonInfo();`也可能会有数据，具体原因可参考源码和下方**注意事项**
+> 注意：`onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo)`中也可能存在数据，即`mCollector.getJsonInfo();`也可能会有数据，具体原因可参考源码和下方 **注意事项**
 
 ```
 	private DeviceInfoCollectListener mDeviceInfoCollectListener = new DeviceInfoCollectListener() {
@@ -267,6 +273,7 @@ public class DemoCollector extends BaseDeviceInfoCollector {
 ## 更新日志
 
 - 上传库，提供Sim&Board信息采集支持，更新README（2017.06.23）
+- 添加CPU、设备基本信息采集支持，更新Sim注释，发布v1.0.1（2017.06.23）
 
 ## 感谢
 
