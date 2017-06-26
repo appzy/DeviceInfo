@@ -7,7 +7,7 @@
 
 采集Android设备信息，以Json形式输出
 
-目前包括Sim卡信息（支持对多张Sim卡的信息采集）、主板、CPU等各种Android设备上的软硬件信息（可拓展）
+可自由定制要采集的设备类型，显示的设备信息详情等
 
 ### 特性
 
@@ -44,7 +44,7 @@
 ```
 - 当然也可以通过重写每个Collector的`public String getJsonInfo();`以自定义Json的输出内容
 
-## 目前可获取的设备信息（库内已支持的，可自由拓展）
+## 目前可获取的设备信息（只作为模板用途，建议使用时自行定制）
 
 - Andorid设备基本信息（PhoneBasicInfoCollector）
 - Sim卡信息（SimInfoCollector）
@@ -65,7 +65,7 @@
 
 [![](https://jitpack.io/v/guyuepeng/DeviceInfo.svg)](https://jitpack.io/#guyuepeng/DeviceInfo)
 
-> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.1`，并不是 ~*xxx*~
+> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.2`，并不是 ~*xxx*~ （推荐使用最新版）
 
 #### Gradle
 
@@ -277,7 +277,8 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
 - Manager的监听回调不一定在主线程，因此若操作涉及线程安全，如更新UI，建议使用`Handler`
 - Manager的`boolean isManualCollectionStartAutomatically`默认为true，若要更改需要手动配置`autoStartManualCollection(boolean)`为false。若设置为false，需要调用`startCollectByHand`开启手动采集队列；当然也可以单独开启某个Collector的手动采集
 - `onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo)`回调中通过调用`mCollector.getJsonInfo();`方法仍可以获取到`doCollectAutomatically();`方法中采集到的自动收集部分的设备信息
-- 库内内置了[AndPermission](https://github.com/yanzhenjie/AndPermission)库以处理权限相关
+- 库内内置了[AndPermission](https://github.com/yanzhenjie/AndPermission)库以处理权限相关，[Gson](https://github.com/google/gson)以处理Json相关
+- 库内所有的Collector实现类只做模板使用，建议使用时自行继承`BaseDeviceInfoCollector`实现；若要使用库内Collector，需要在 *Manifests.xml* 中声明对应权限后才能正常使用
 
 ## 更新日志
 
