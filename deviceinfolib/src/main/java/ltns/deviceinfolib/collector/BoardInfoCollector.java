@@ -3,13 +3,15 @@ package ltns.deviceinfolib.collector;
 import android.content.Context;
 import android.os.Build;
 
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
+
 /**
  * Created by guyuepeng on 2017/6/21.
  * Email: gu.yuepeng@foxmail.com
  */
 
 public class BoardInfoCollector extends BaseDeviceInfoCollector {
-    private static final String BOARD_NAME = "board_name";
+    private static final String BOARD_NAME = "boardName";
 
     public BoardInfoCollector(Context context, String collectorName) {
         super(context, collectorName);

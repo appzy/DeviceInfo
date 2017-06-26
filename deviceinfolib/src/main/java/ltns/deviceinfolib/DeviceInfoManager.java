@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ltns.deviceinfolib.collector.BaseDeviceInfoCollector;
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 import ltns.deviceinfolib.listener.CollectorStateObserver;
 import ltns.deviceinfolib.listener.DeviceInfoCollectListener;
 import ltns.deviceinfolib.utils.PermissionsCheckUtils;

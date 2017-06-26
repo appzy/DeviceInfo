@@ -1,4 +1,4 @@
-package ltns.deviceinfolib.collector;
+package ltns.deviceinfolib.collector.base;
 
 import android.content.Context;
 

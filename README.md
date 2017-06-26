@@ -11,14 +11,14 @@
 
 ### 特性
 
+- 通过继承`BaseDeviceInfoCollector`类，配合`DeviceInfoManager`以获取任意设备信息
 - 通过`DeviceInfoManager`管理每个设备信息采集器（下简称：Collector），可自由添加Collector，以同时采集N多种软硬件设备信息
 - Collector分为自动采集和手动采集两种采集方式。
 	- 自动采集：Manager控制自发进行的采集
 	- 手动采集：需要用户参与交互的数据采集过程
 - Manager管理的多个Collector做并发自动采集，手动采集可以配置在自动采集动作结束后自行开始
 - 每个Collector独立管理各自所需要的权限，在Manager中统一申请（SDK_VERSION >= 23）
-- 继承`BaseDeviceInfoCollector`类以拓展可采集的设备信息
-- 可选择获取所有的模块的设备信息（Json），也可以选择只输出单一模块
+- 可选择获取所有的模块的设备信息（Json），也可以选择只输出单一模块（Json）
 - 提供丰富的状态回调接口`DeviceInfoCollectListener`
 
 ## 输出示例
@@ -27,7 +27,7 @@
 
 ```
 {
-    "board": {"board_name": "MSM8939"},
+    "board": {"boardName": "MSM8939"},
     "sim": [{
         "dataState": "0",
         "imsi": "460036820263837",
@@ -51,6 +51,13 @@
 	- 同时识别多张Sim卡	
 - 主板信息（BoardInfoCollector）
 - Cpu信息（CpuInfoCollector）
+- 电池信息（BatteryInfoCollector）
+- 屏幕信息（ScreenInfoCollector）
+- NFC信息（NfcInfoCollector）
+- 传感器列表（SensorInfoCollector）
+- 摄像头信息（CameraInfoCollector）
+- 存储信息（RAM & SD）（StorageInfoCollector）
+- Ui信息（UiInfoCollector）
 
 ## 如何使用
 
@@ -105,6 +112,55 @@
 	
 
 ### 使用方法
+
+#### 拓展自定义Collector
+
+通过继承`BaseDeviceInfoCollector`抽象类进行功能拓展，以采集更多信息，或输出自定义的Json内容
+
+- `public DemoCollector(Context context, String collectorName)`中的`collectorName`
+- `public abstract boolean needCollectManually();`返回自定义Collector是否需要手动收集
+- `public abstract String[] getRequiredPermissions();`返回自定义Collector所需要的权限（每个Collector独立管理权限，Manager统一申请）
+- `protected abstract void doCollectAutomatically();`Collector做自动采集的方法
+- `protected abstract void doCollectManually();`Collector做手动采集的方法，若采用Manager统一管理，需要`needCollectManually()`的返回值为`true`此方法才会被调用
+
+```
+package ltns.deviceinfolib.collector;
+
+import android.content.Context;
+
+/**
+ * Created by guyuepeng on 2017/6/23.
+ * Email: gu.yuepeng@foxmail.com
+ */
+
+public class DemoCollector extends BaseDeviceInfoCollector {
+    public DemoCollector(Context context, String collectorName) {
+        super(context, collectorName);
+    }
+
+    @Override
+    public boolean needCollectManually() {
+        return false;
+    }
+
+    @Override
+    public String[] getRequiredPermissions() {
+        return new String[0];
+    }
+
+    @Override
+    protected void doCollectAutomatically() {
+
+    }
+
+    @Override
+    protected void doCollectManually() {
+
+    }
+}
+
+```
+
 
 #### 通过Manager管理多个Collector
 
@@ -214,53 +270,6 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
     };
 ```
 
-#### 拓展自定义Collector
-
-通过继承`BaseDeviceInfoCollector`抽象类进行功能拓展，以采集更多信息，或输出自定义的Json内容
-
-- `public DemoCollector(Context context, String collectorName)`中的`collectorName`
-- `public abstract boolean needCollectManually();`返回自定义Collector是否需要手动收集
-- `public abstract String[] getRequiredPermissions();`返回自定义Collector所需要的权限（每个Collector独立管理权限，Manager统一申请）
-- `protected abstract void doCollectAutomatically();`Collector做自动采集的方法
-- `protected abstract void doCollectManually();`Collector做手动采集的方法，若采用Manager统一管理，需要`needCollectManually()`的返回值为`true`此方法才会被调用
-
-```
-package ltns.deviceinfolib.collector;
-
-import android.content.Context;
-
-/**
- * Created by guyuepeng on 2017/6/23.
- * Email: gu.yuepeng@foxmail.com
- */
-
-public class DemoCollector extends BaseDeviceInfoCollector {
-    public DemoCollector(Context context, String collectorName) {
-        super(context, collectorName);
-    }
-
-    @Override
-    public boolean needCollectManually() {
-        return false;
-    }
-
-    @Override
-    public String[] getRequiredPermissions() {
-        return new String[0];
-    }
-
-    @Override
-    protected void doCollectAutomatically() {
-
-    }
-
-    @Override
-    protected void doCollectManually() {
-
-    }
-}
-
-```
 
 ## 注意事项
 
@@ -274,6 +283,7 @@ public class DemoCollector extends BaseDeviceInfoCollector {
 
 - 上传库，提供Sim&Board信息采集支持，更新README（2017.06.23）
 - 添加CPU、设备基本信息采集支持，更新Sim注释，发布v1.0.1（2017.06.23）
+- 添加更多信息采集模板类（Battery,NFC,Camera...），统一输出（Json）中key的命名规范（2017.06.26）
 
 ## 感谢
 

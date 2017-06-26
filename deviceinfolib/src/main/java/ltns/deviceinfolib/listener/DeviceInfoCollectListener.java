@@ -1,7 +1,7 @@
 package ltns.deviceinfolib.listener;
 
 import ltns.deviceinfolib.DeviceInfoManager;
-import ltns.deviceinfolib.collector.BaseDeviceInfoCollector;
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 /**
  * Created by guyuepeng on 2017/6/20.

@@ -7,9 +7,10 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 
 /**
@@ -18,21 +19,28 @@ import java.lang.reflect.Method;
  */
 
 public class PhoneBasicInfoCollector extends BaseDeviceInfoCollector {
-    private static final String VENDOR = "vendor";//供应商
-    private static final String MODEL = "model";//版本
+    private static final String PRODUCT = "product";//产品型号
+    private static final String MODEL = "model";//手机型号
     private static final String SDK = "sdk";//sdk
-    private static final String SDK_INT = "sdk_int";//sdk版本号，如andorid6.0-->23
+    private static final String SDK_INT = "sdkInt";//sdk版本号，如andorid6.0-->23
     private static final String MAC = "mac";//mac地址
     private static final String IMEI = "imei";//IMEI
-    private static final String HARDWARE_ID = "hardware_id";
-    private static final String RADIO_VERSION = "radio_version";//无线电固件版本
+    private static final String HARDWARE = "hardware";
+    private static final String RADIO_VERSION = "radioVersion";//无线电固件版本
+
+    private static final String BRAND="brand";//系统供应商
+    private static final String ROM="rom";//rom供应商
+    private static final String VERSION="systemVersion";//系统版本
+    private static final String DISPLAY="display";//版本显示
+    private static final String HOST="host";//主机
+    /*
     /*
      * 电话状态：
      * 1.tm.CALL_STATE_IDLE=0     无活动
      * 2.tm.CALL_STATE_RINGING=1  响铃
      * 3.tm.CALL_STATE_OFFHOOK=2  摘机
      */
-    private static final String CALL_STATE = "call_state";
+    private static final String CALL_STATE = "callState";
 
 
     public PhoneBasicInfoCollector(Context context, String collectorName) {
@@ -49,20 +57,26 @@ public class PhoneBasicInfoCollector extends BaseDeviceInfoCollector {
 
     @Override
     public String[] getRequiredPermissions() {
-        return new String[0];
+        return permissions;
     }
 
     @Override
     protected void doCollectAutomatically() {
-        put(VENDOR, Build.MANUFACTURER);
+        put(ROM, Build.MANUFACTURER);
         put(CALL_STATE, getCallState());
         put(MODEL, Build.MODEL);
         put(SDK, Build.VERSION.RELEASE);
         put(SDK_INT, Build.VERSION.SDK_INT);
         put(MAC, getMacAddress());
         put(IMEI, getDeviceId());
-        put(HARDWARE_ID, getHardware());
+        put(HARDWARE, Build.HARDWARE);
         put(RADIO_VERSION, getRadioVer());
+        put(PRODUCT,Build.PRODUCT);
+        put(VERSION,Build.VERSION.RELEASE);
+        put(HOST,Build.HOST);
+        put(BRAND,Build.BRAND);
+        put(DISPLAY,Build.DISPLAY);
+
     }
 
     private int getCallState() {
@@ -70,34 +84,8 @@ public class PhoneBasicInfoCollector extends BaseDeviceInfoCollector {
         return tm.getCallState();
     }
 
-    private String getHardware() {
-        String hardware = "UNKNOW";
-        if (Build.VERSION.SDK_INT > 8) {
-            try {
-                Class<?> propertyClass = Class.forName("android.os.Build");
-                Build build = (Build) propertyClass.newInstance();
-                Field f = build.getClass().getField("HARDWARE");
-                hardware = (String) f.get(hardware);
-                if (null != hardware && hardware.toLowerCase().contains("mt")) {
-                    return hardware;
-                } else {
-                    return getPlatform("ro.board.platform", "unknown");
-                }
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-        }
-        return hardware;
-    }
 
+    @Deprecated
     private String getPlatform(String key, String def) {
         Class<?> mClassType = null;
         String v = "UNKNOW";

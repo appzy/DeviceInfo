@@ -12,4 +12,8 @@ public interface Constant {
         String UNKNOWN_ERROR = "未知错误";
     }
 
+    interface ScreenInfoValue {
+        String MULTI_TOUCH ="multiTouch";
+    }
+
 }

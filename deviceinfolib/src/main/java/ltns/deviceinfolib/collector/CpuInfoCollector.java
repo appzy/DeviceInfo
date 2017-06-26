@@ -1,6 +1,7 @@
 package ltns.deviceinfolib.collector;
 
 import android.content.Context;
+import android.os.Build;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,29 +14,34 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
+
 /**
  * Created by guyuepeng on 2017/6/23.
  * Email: gu.yuepeng@foxmail.com
  */
 
 public class CpuInfoCollector extends BaseDeviceInfoCollector {
-    private static final String CPU_HARDWARE = "cpu_hardware";
-    private static final String CPU_FEATURE = "cpu_feature";
-    private static final String CPU_MODEL = "cpu_model";
-    private static final String CPU_ARCH = "cpu_arch";//
-    private static final String MAX_FREQ = "max_freq";//最大频率
-    private static final String CURRENT_FREQ = "current_freq";//当前频率
-    private static final String MIN_FREQ = "min_freq";//最小频率
-    private static final String CORE_NUMBER = "core_number";//cpu核心数
-    private static final String CPU_NAME = "cpu_name";
+    private static final String CPU_HARDWARE = "cpuHardware";
+    private static final String CPU_FEATURE = "cpuFeature";
+    private static final String CPU_MODEL = "cpuModel";
+    private static final String CPU_ARCH = "cpuArch";//
+    private static final String MAX_FREQ = "maxFreq";//最大频率
+    private static final String CURRENT_FREQ = "currentFreq";//当前频率
+    private static final String MIN_FREQ = "minFreq";//最小频率
+    private static final String CORE_NUMBER = "coreNumber";//cpu核心数
+    private static final String CPU_NAME = "cpuName";
 
     public CpuInfoCollector(Context context, String collectorName) {
         super(context, collectorName);
     }
 
-    private static final String TOTAL_CPU_RUNNING_TIME = "total_cpu_running_time";//cpu总运行时长
+    private static final String CPU_ABI="cpuAbi";
+    private static final String CPU_ABI_2="cpuAbi2";
+
+    private static final String TOTAL_CPU_RUNNING_TIME = "totalCpuRunningTime";//cpu总运行时长
     private static final String PROCESS_CPU_RATE = "processCpuRate";//CPU占用率
-    private static final String APP_CPU_TIME = "app_cpu_time";//应用的cpu占用时长
+    private static final String APP_CPU_TIME = "appCpuTime";//应用的cpu占用时长
 
     @Override
     public boolean needCollectManually() {
@@ -58,6 +64,9 @@ public class CpuInfoCollector extends BaseDeviceInfoCollector {
         put(APP_CPU_TIME, getAppCpuTime());
         put(TOTAL_CPU_RUNNING_TIME, getTotalCpuRunningTime());
         put(PROCESS_CPU_RATE, getProcessCpuRate());
+
+        put(CPU_ABI, Build.CPU_ABI);
+        put(CPU_ABI_2, Build.CPU_ABI2);
 
         collectOtherCpuInfo();
     }

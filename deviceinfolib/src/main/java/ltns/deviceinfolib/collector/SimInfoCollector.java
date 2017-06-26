@@ -16,6 +16,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
+
 /**
  * Created by guyuepeng on 2017/6/21.
  * Email: gu.yuepeng@foxmail.com

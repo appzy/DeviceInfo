@@ -10,11 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ltns.deviceinfolib.DeviceInfoManager;
-import ltns.deviceinfolib.collector.BaseDeviceInfoCollector;
-import ltns.deviceinfolib.collector.BoardInfoCollector;
-import ltns.deviceinfolib.collector.CpuInfoCollector;
+import ltns.deviceinfolib.collector.NfcInfoCollector;
 import ltns.deviceinfolib.collector.PhoneBasicInfoCollector;
-import ltns.deviceinfolib.collector.SimInfoCollector;
+import ltns.deviceinfolib.collector.SensorInfoCollector;
+import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 import ltns.deviceinfolib.listener.DeviceInfoCollectListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     tv.setText(tv.getText() + "\n" + msg.obj.toString());
                     break;
                 case ALL_DONE:
+                    Toast.makeText(MainActivity.this, "采集完成", Toast.LENGTH_SHORT).show();
                     tv.setText(tv.getText() + "\n\n\nAll Done:\n"+((DeviceInfoManager) msg.obj).getDeviceJsonInfo());
                     break;
 
@@ -100,10 +100,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void collectDeviceInfo() {
         DeviceInfoManager.NewInstance(this)
-                .addCollector(new BoardInfoCollector(MainActivity.this, "board"))
-                .addCollector(new SimInfoCollector(MainActivity.this, "sim"))
                 .addCollector(new PhoneBasicInfoCollector(this, "basic"))
-                .addCollector(new CpuInfoCollector(this, "cpu"))
+//                .addCollector(new SimInfoCollector(this, "sim"))
+//                .addCollector(new CpuInfoCollector(this, "cpu"))
+//                .addCollector(new BoardInfoCollector(this, "board"))
+//                .addCollector(new BatteryInfoCollector(this, "battery"))
+//                .addCollector(new StorageInfoCollector(this, "storage"))
+//                .addCollector(new CameraInfoCollector(this, "camera",true))
+//                .addCollector(new ScreenInfoCollector(this, "screen"))
+//                .addCollector(new UiInfoCollector(this, "ui"))
+                .addCollector(new SensorInfoCollector(this, "sensor"))
+                .addCollector(new NfcInfoCollector(this, "nfc"))
                 .autoStartManualCollection(true)
                 .bindListener(mDeviceInfoCollectListener)
                 .start();
