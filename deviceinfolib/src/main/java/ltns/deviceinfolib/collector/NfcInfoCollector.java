@@ -16,6 +16,7 @@ public class NfcInfoCollector extends BaseDeviceInfoCollector {
         super(context, collectorName);
     }
 
+    //是否支持nfc
     private static final String NFC_SUPPORT = "nfcSupport";
 
     @Override

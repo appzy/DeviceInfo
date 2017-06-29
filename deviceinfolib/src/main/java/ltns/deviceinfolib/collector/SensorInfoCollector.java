@@ -4,8 +4,6 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,7 @@ public class SensorInfoCollector extends BaseDeviceInfoCollector {
         super(context, collectorName);
     }
 
+    //传感器名列表
     private List<String> mSensorNames = new ArrayList<>();
 
     @Override
@@ -54,6 +53,6 @@ startCollectSensor();
 
     @Override
     public String getJsonInfo() {
-        return new Gson().toJson(mSensorNames);
+        return getGson().toJson(mSensorNames);
     }
 }

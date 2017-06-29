@@ -3,6 +3,7 @@ package ltns.deviceinfolib.collector.base;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 
@@ -126,6 +127,7 @@ public abstract class BaseDeviceInfoCollector {
         if (hasObserver)
             mStateObserver.onCollectionSuccess(this);
     }
+
     /**
      * 当手动采集和自动收集均成功完成采集时调用
      */
@@ -144,7 +146,13 @@ public abstract class BaseDeviceInfoCollector {
      * @return
      */
     public String getJsonInfo() {
-        return new Gson().toJson(collectDataMap);
+        return getGson().toJson(collectDataMap);
+    }
+
+    protected Gson getGson() {
+        return new GsonBuilder()
+                .disableHtmlEscaping()
+                .create();
     }
 
 

@@ -10,8 +10,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
-import com.google.gson.Gson;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +19,14 @@ import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 /**
  * Created by guyuepeng on 2017/6/21.
  * Email: gu.yuepeng@foxmail.com
- *
+ * <p>
  * 具体每个方法获取的值的含义以及返回值区间见内部类SimCard.java中的注释
  */
 
 public class SimInfoCollector extends BaseDeviceInfoCollector {
+
+    private static final String SIM_COUNT = "simCount";
+    private static final String SIMS = "sims";
 
     private class SimCard {
         /**
@@ -75,6 +76,16 @@ public class SimInfoCollector extends BaseDeviceInfoCollector {
         private String simOperator;//手机卡运营商：46001
         private String simOperatorName;//手机卡运营商名称：中国联通
         private String imsi;//手机卡的IMSI：4600179xxxxxxxx
+
+        private String imei;//sim卡槽对应的设备号IMEI
+
+        public String getImei() {
+            return imei;
+        }
+
+        public void setImei(String imei) {
+            this.imei = imei;
+        }
 
 
         public String getNetworkOperatorName() {
@@ -172,12 +183,14 @@ public class SimInfoCollector extends BaseDeviceInfoCollector {
     private static final String FUN_SIM_COUNTRY_ISO = "getSimCountryIso";//手机卡国家简称：cn
     private static final String FUN_SIM_OPERATOR = "getSimOperator";//手机卡运营商：46001
     private static final String FUN_SIM_IMSI = "getSubscriberId";//手机卡的IMSI：4600179xxxxxxxx
+//    private static final String FUN_IMEI = "getDeviceIdGemini";//设备IMEI：4600179xxxxxxxx---MTX
+//    private static final String FUN_IMEI2 = "getDeviceId";//和上面的方法一样的功能，不同平台自己定制的内容不一样
 
-    private static final String FUN_NETWORK_TYPE = "getNetworkType";
-    private static final String FUN_NETWORK_OPERATOR_NAME = "getNetworkOperatorName";
-    private static final String FUN_PHONE_TYPE = "getPhoneType";
-    private static final String FUN_DATA_STATE = "getDataState";
-    private static final String FUN_IS_NETWORK_ROAMING = "isNetworkRoaming";
+    private static final String FUN_NETWORK_TYPE = "getNetworkType";//当前使用的网络类型
+    private static final String FUN_NETWORK_OPERATOR_NAME = "getNetworkOperatorName";//(当前已注册的用户)运营商名字:
+    private static final String FUN_PHONE_TYPE = "getPhoneType";//手机类型
+    private static final String FUN_DATA_STATE = "getDataState";//获取数据连接状态
+    private static final String FUN_IS_NETWORK_ROAMING = "isNetworkRoaming";//是否漫游
 
     public SimInfoCollector(Context context, String collectorName) {
         super(context, collectorName);
@@ -215,8 +228,13 @@ public class SimInfoCollector extends BaseDeviceInfoCollector {
             simCard.setPhoneType(getOperatorBySlot(mContext, FUN_PHONE_TYPE, Integer.valueOf(id)));
             simCard.setDataState(getOperatorBySlot(mContext, FUN_DATA_STATE, Integer.valueOf(id)));
             simCard.setIsNetworkRoaming(getOperatorBySlot(mContext, FUN_IS_NETWORK_ROAMING, Integer.valueOf(id)));
+//            simCard.setImei(getOperatorBySlot(mContext, FUN_IMEI, Integer.valueOf(id)) != null
+//                    ? getOperatorBySlot(mContext, FUN_IMEI, Integer.valueOf(id))
+//                    : getOperatorBySlot(mContext, FUN_IMEI2, Integer.valueOf(id)));
             mSimCards.add(simCard);
         }
+        put(SIM_COUNT,mSimCards.size());
+        put(SIMS,mSimCards);
     }
 
     @Override
@@ -279,9 +297,5 @@ public class SimInfoCollector extends BaseDeviceInfoCollector {
         return inumeric;
     }
 
-    @Override
-    public String getJsonInfo() {
-        return new Gson().toJson(mSimCards);
-    }
 
 }

@@ -131,8 +131,8 @@ public class StorageInfoCollector extends BaseDeviceInfoCollector {
             this.ramTotal = ramTotal;
         }
 
-        private String ramAvail;
-        private String ramTotal;
+        private String ramAvail;//可用ram
+        private String ramTotal;//总ram
 
     }
 

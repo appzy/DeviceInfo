@@ -17,7 +17,7 @@ public class UiInfoCollector extends BaseDeviceInfoCollector {
         super(context, collectorName);
     }
 
-    private static final String HAS_NAVIGATION_BAR = "hasNavigationBar";
+    private static final String HAS_NAVIGATION_BAR = "hasNavigationBar";//有没有底部navigationBar
 
     @Override
     public boolean needCollectManually() {

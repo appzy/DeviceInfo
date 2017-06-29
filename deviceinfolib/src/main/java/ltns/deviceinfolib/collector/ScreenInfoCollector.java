@@ -16,7 +16,6 @@ import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 public class ScreenInfoCollector extends BaseDeviceInfoCollector {
     private static final String REAL_RESOLUTION = "realResolution";//实际像素
     private static final String RESOLUTION = "resolution";//正常像素
-
     private static final String DENSITY_DPI = "densityDpi";// 屏幕密度（每寸像素：120/160/240/320）
 
 //    private static final String SCREEN_WIDTH = "screenWidth";//屏幕宽度

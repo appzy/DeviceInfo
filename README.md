@@ -19,7 +19,7 @@
 - Manager管理的多个Collector做并发自动采集，手动采集可以配置在自动采集动作结束后自行开始
 - 每个Collector独立管理各自所需要的权限，在Manager中统一申请（SDK_VERSION >= 23）
 - 可选择获取所有的模块的设备信息（Json），也可以选择只输出单一模块（Json）
-- 提供丰富的状态回调接口`DeviceInfoCollectListener`
+- 提供丰富的状态回调接口`DeviceInfoCollectListener`，可以监听采集结束等各种状态
 
 ## 输出示例
 
@@ -58,12 +58,15 @@
 - 摄像头信息（CameraInfoCollector）
 - 存储信息（RAM & SD）（StorageInfoCollector）
 - Ui信息（UiInfoCollector）
+- 系统相关信息（Build.prop等）
 
 ## 如何使用
 
 ### 添加依赖库
 
 [![](https://jitpack.io/v/guyuepeng/DeviceInfo.svg)](https://jitpack.io/#guyuepeng/DeviceInfo)
+[![GitHub issues](https://img.shields.io/github/issues/guyuepeng/DeviceInfo.svg)](https://github.com/guyuepeng/DeviceInfo/issues)
+
 
 > 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.2`，并不是 ~*xxx*~ （推荐使用最新版）
 
@@ -285,6 +288,7 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
 - 上传库，提供Sim&Board信息采集支持，更新README（2017.06.23）
 - 添加CPU、设备基本信息采集支持，更新Sim注释，发布v1.0.1（2017.06.23）
 - 添加更多信息采集模板类（Battery,NFC,Camera...），统一输出（Json）中key的命名规范（2017.06.26）
+- 添加了系统描述相关信息的采集，修改了Demo.apk中的Json的显示方式（2017.06.29）
 
 ## 感谢
 
@@ -293,6 +297,6 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
 
 ## 扯扯淡
 
-写得过程很奇葩，各种诡异的方式去实现，最后感觉这样做还不错，用起来挺顺手的。不过不知道这Manager用的对不对，略微担心: G
+在腾讯实习，Boss让写一个采集设备信息，用作购置新设备入库时录入设备信息，所以我写的Collector有很多是有和公司要录入的信息相关的，建议如果要用还是自己写Collector，我觉得这个库用起来还挺方便。写得过程很奇葩，各种诡异的方式去实现，最后改来改去感觉这样做还不错，用起来挺顺手的。不过不知道这Manager用的对不对，略微担心: G
 
 另外如果你写了Collector并愿意分享，欢迎Commit : D

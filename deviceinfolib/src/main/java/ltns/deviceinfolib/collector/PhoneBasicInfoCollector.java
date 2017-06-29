@@ -7,6 +7,8 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -20,7 +22,7 @@ import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 public class PhoneBasicInfoCollector extends BaseDeviceInfoCollector {
     private static final String PRODUCT = "product";//产品型号
-    private static final String MODEL = "model";//手机型号
+    private static final String MODEL = "model_m";//手机型号
     private static final String SDK = "sdk";//sdk
     private static final String SDK_INT = "sdkInt";//sdk版本号，如andorid6.0-->23
     private static final String MAC = "mac";//mac地址
@@ -29,7 +31,7 @@ public class PhoneBasicInfoCollector extends BaseDeviceInfoCollector {
     private static final String RADIO_VERSION = "radioVersion";//无线电固件版本
 
     private static final String BRAND="brand";//系统供应商
-    private static final String ROM="rom";//rom供应商
+    private static final String ROM="rom";//rom供应商???
     private static final String VERSION="systemVersion";//系统版本
     private static final String DISPLAY="display";//版本显示
     private static final String HOST="host";//主机

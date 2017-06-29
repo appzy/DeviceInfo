@@ -4,7 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.hardware.Camera;
 
-import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,9 @@ import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 
 public class CameraInfoCollector extends BaseDeviceInfoCollector {
+    @SerializedName("camera_number")
+    private static final String CAMERA_COUNT = "cameraCount";
+    private static final String CAMERAS = "cameras";
     private boolean onlyNeedNormalInfo = true;
 
     /**
@@ -38,7 +41,7 @@ public class CameraInfoCollector extends BaseDeviceInfoCollector {
     private String permissions[] = {Manifest.permission.CAMERA};
 
     /**
-     * 用Parameters和CameraInfo描述摄像头属性
+     * 用Camera.Parameters类和Camera.CameraInfo类描述摄像头属性
      */
     class CameraBean {
         /*
@@ -71,27 +74,16 @@ public class CameraInfoCollector extends BaseDeviceInfoCollector {
      * 基础信息
      */
     class CameraBean2 {
-        //支持的预览状态的图片像素
-        private List<Camera.Size> supportedPreviewSizes;
         //支持的实际拍摄的图片像素
-        private List<Camera.Size> supportedPictureSizes;
+        private String maxPictureSize = "0*0";
         private Camera.CameraInfo cameraInfo;
 
-
-        public List<Camera.Size> getSupportedPreviewSizes() {
-            return supportedPreviewSizes;
+        public String getMaxPictureSize() {
+            return maxPictureSize;
         }
 
-        public void setSupportedPreviewSizes(List<Camera.Size> supportedPreviewSizes) {
-            this.supportedPreviewSizes = supportedPreviewSizes;
-        }
-
-        public List<Camera.Size> getSupportedPictureSizes() {
-            return supportedPictureSizes;
-        }
-
-        public void setSupportedPictureSizes(List<Camera.Size> supportedPictureSizes) {
-            this.supportedPictureSizes = supportedPictureSizes;
+        public void setMaxPictureSize(String maxPictureSize) {
+            this.maxPictureSize = maxPictureSize;
         }
 
         public Camera.CameraInfo getCameraInfo() {
@@ -126,8 +118,9 @@ public class CameraInfoCollector extends BaseDeviceInfoCollector {
             Camera.getCameraInfo(i, cameraInfo);
             if (onlyNeedNormalInfo) {
                 camera = new CameraBean2();
-                camera.setSupportedPreviewSizes(c.getParameters().getSupportedPreviewSizes());
-                camera.setSupportedPictureSizes(c.getParameters().getSupportedPictureSizes());
+                List<Camera.Size> mSize = c.getParameters().getSupportedPictureSizes();
+                if (mSize.size() != 0)
+                    camera.setMaxPictureSize(mSize.get(0).height + "*" + mSize.get(0).width);
                 camera.setCameraInfo(cameraInfo);
                 cameras.add(camera);
             } else {
@@ -140,14 +133,15 @@ public class CameraInfoCollector extends BaseDeviceInfoCollector {
             c.release();
             c = null;
         }
+        if (onlyNeedNormalInfo) {
+            put(CAMERA_COUNT, cameras.size());
+            put(CAMERAS, cameras);
+        } else {
+            put(CAMERA_COUNT, mCameras.size());
+            put(CAMERAS, mCameras);
+        }
     }
 
-    @Override
-    public String getJsonInfo() {
-        if (onlyNeedNormalInfo)
-            return new Gson().toJson(cameras);
-        return new Gson().toJson(mCameras);
-    }
 
     @Override
     protected void doCollectManually() {

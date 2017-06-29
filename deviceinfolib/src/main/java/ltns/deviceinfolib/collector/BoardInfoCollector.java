@@ -11,7 +11,7 @@ import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
  */
 
 public class BoardInfoCollector extends BaseDeviceInfoCollector {
-    private static final String BOARD_NAME = "boardName";
+    private static final String BOARD_NAME = "boardName";//主板名
 
     public BoardInfoCollector(Context context, String collectorName) {
         super(context, collectorName);

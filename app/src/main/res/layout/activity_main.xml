@@ -27,13 +27,30 @@
 
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:gravity="end">
+
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:background="@color/colorAccent"
         android:text="Start"
         android:textColor="@color/white"
-        android:layout_gravity="end"/>
+        android:layout_marginRight="8dp"
+        />
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Save"
+        android:textColor="@color/white"
+        />
+    </LinearLayout>
+
 </LinearLayout>
