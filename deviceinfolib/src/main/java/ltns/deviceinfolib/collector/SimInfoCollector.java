@@ -17,12 +17,11 @@ import java.util.List;
 import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 /**
- * Created by guyuepeng on 2017/6/21.
- * Email: gu.yuepeng@foxmail.com
- * <p>
- * 具体每个方法获取的值的含义以及返回值区间见内部类SimCard.java中的注释
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description Sim卡信息 具体每个方法获取的值的含义以及返回值区间见内部类SimCard.java中的注释
+ * @version
  */
-
 public class SimInfoCollector extends BaseDeviceInfoCollector {
 
     private static final String SIM_COUNT = "simCount";

@@ -1,4 +1,4 @@
-# DeviceInfo
+# DeviceInfo采集android设备信息工具
 
 
 ## 库介绍
@@ -42,6 +42,26 @@
     }]
 }
 ```
+- 自定义设备信息
+```
+DeviceInfoManager.NewInstance(this)
+        .addCollector(new PhoneBasicInfoCollector(this, "basic"))       //Andorid设备基本信息（PhoneBasicInfoCollector）
+        .addCollector(new SimInfoCollector(this, "sim"))                //Sim卡信息（SimInfoCollector）同时识别多张Sim卡
+        .addCollector(new CpuInfoCollector(this, "cpu"))                //Cpu信息（CpuInfoCollector）
+        .addCollector(new BoardInfoCollector(this, "board"))            //主板信息（BoardInfoCollector）
+        .addCollector(new BatteryInfoCollector(this, "battery"))        //电池信息（BatteryInfoCollector）
+        .addCollector(new StorageInfoCollector(this, "storage"))        //存储信息（RAM & SD）（StorageInfoCollector）
+        .addCollector(new CameraInfoCollector(this, "camera", true))    //摄像头信息（CameraInfoCollector）
+        .addCollector(new ScreenInfoCollector(this, "screen"))          //屏幕信息（ScreenInfoCollector）
+        .addCollector(new UiInfoCollector(this, "ui"))                  //Ui信息（UiInfoCollector）
+        .addCollector(new SensorInfoCollector(this, "sensor"))          //传感器列表（SensorInfoCollector）
+        .addCollector(new NfcInfoCollector(this, "nfc"))                //NFC信息（NfcInfoCollector）
+        .addCollector(new SystemInfoCollector(this, "system"))          //系统相关信息（Build.prop等）
+        .autoStartManualCollection(true)
+        .bindListener(mDeviceInfoCollectListener)
+        .start();
+```
+
 - 当然也可以通过重写每个Collector的`public String getJsonInfo();`以自定义Json的输出内容
 
 ## 目前可获取的设备信息（只作为模板用途，建议使用时自行定制）
@@ -65,10 +85,10 @@
 ### 添加依赖库
 
 [![](https://jitpack.io/v/guyuepeng/DeviceInfo.svg)](https://jitpack.io/#guyuepeng/DeviceInfo)
-[![GitHub issues](https://img.shields.io/github/issues/guyuepeng/DeviceInfo.svg)](https://github.com/guyuepeng/DeviceInfo/issues)
+[![GitHub issues](https://img.shields.io/github/issues/guyuepeng/DeviceInfo.svg)](https://github.com/appzy/DeviceInfo/issues)
 
 
-> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.2`，并不是 ~*xxx*~ （推荐使用最新版）
+> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.3`，并不是 ~*xxx*~ （推荐使用最新版）
 
 #### Gradle
 
@@ -132,8 +152,10 @@ package ltns.deviceinfolib.collector;
 import android.content.Context;
 
 /**
- * Created by guyuepeng on 2017/6/23.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description
+ * @version
  */
 
 public class DemoCollector extends BaseDeviceInfoCollector {
@@ -293,10 +315,7 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
 ## 感谢
 
 - 库内使用了 **严振杰** 的[AndPermission](https://github.com/yanzhenjie/AndPermission)库
-- 感谢 *Tencent* 的 **Sven** 和 **Elvis** 的帮助指导
 
 ## 扯扯淡
-
-在腾讯实习，Boss让写一个采集设备信息，用作购置新设备入库时录入设备信息，所以我写的Collector有很多是有和公司要录入的信息相关的，建议如果要用还是自己写Collector，我觉得这个库用起来还挺方便。写得过程很奇葩，各种诡异的方式去实现，最后改来改去感觉这样做还不错，用起来挺顺手的。不过不知道这Manager用的对不对，略微担心: G
-
-另外如果你写了Collector并愿意分享，欢迎Commit : D
+- 源码地址：[https://github.com/appzy/DeviceInfo](https://github.com/appzy/DeviceInfo)
+- 如果觉得有用，欢迎Stars

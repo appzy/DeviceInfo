@@ -5,8 +5,10 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 
 /**
- * Created by guyuepeng on 2017/6/21.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description 权限
+ * @version
  */
 
 public class PermissionsCheckUtils {

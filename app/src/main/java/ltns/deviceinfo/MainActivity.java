@@ -14,6 +14,7 @@ import android.widget.Toast;
 import ltns.deviceinfo.utils.FileUtils;
 import ltns.deviceinfo.utils.JsonUtils;
 import ltns.deviceinfolib.DeviceInfoManager;
+import ltns.deviceinfolib.collector.BatteryInfoCollector;
 import ltns.deviceinfolib.collector.BoardInfoCollector;
 import ltns.deviceinfolib.collector.CameraInfoCollector;
 import ltns.deviceinfolib.collector.CpuInfoCollector;
@@ -23,10 +24,17 @@ import ltns.deviceinfolib.collector.ScreenInfoCollector;
 import ltns.deviceinfolib.collector.SensorInfoCollector;
 import ltns.deviceinfolib.collector.SimInfoCollector;
 import ltns.deviceinfolib.collector.StorageInfoCollector;
+import ltns.deviceinfolib.collector.SystemInfoCollector;
 import ltns.deviceinfolib.collector.UiInfoCollector;
 import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 import ltns.deviceinfolib.listener.DeviceInfoCollectListener;
 
+/**
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description 获取设备信息
+ * @version
+ */
 public class MainActivity extends AppCompatActivity {
     private static final int ERROR = 0;
     private static final int ALL_DONE = 1;
@@ -128,21 +136,26 @@ public class MainActivity extends AppCompatActivity {
         public void onAutoAllDone(DeviceInfoManager mDeviceInfoManager) {
         }
     };
-
+/**
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description 目前可获取的设备信息（只作为模板用途，建议使用时自行定制）
+ * @version
+ */
     private void collectDeviceInfo() {
         DeviceInfoManager.NewInstance(this)
-                .addCollector(new PhoneBasicInfoCollector(this, "basic"))
-                .addCollector(new SimInfoCollector(this, "sim"))
-                .addCollector(new CpuInfoCollector(this, "cpu"))
-                .addCollector(new BoardInfoCollector(this, "board"))
-//                .addCollector(new BatteryInfoCollector(this, "battery"))
-                .addCollector(new StorageInfoCollector(this, "storage"))
-                .addCollector(new CameraInfoCollector(this, "camera", true))
-                .addCollector(new ScreenInfoCollector(this, "screen"))
-                .addCollector(new UiInfoCollector(this, "ui"))
-                .addCollector(new SensorInfoCollector(this, "sensor"))
-                .addCollector(new NfcInfoCollector(this, "nfc"))
-//                .addCollector(new SystemInfoCollector(this, "system"))
+                .addCollector(new PhoneBasicInfoCollector(this, "basic"))       //Andorid设备基本信息（PhoneBasicInfoCollector）
+                .addCollector(new SimInfoCollector(this, "sim"))                //Sim卡信息（SimInfoCollector）同时识别多张Sim卡
+                .addCollector(new CpuInfoCollector(this, "cpu"))                //Cpu信息（CpuInfoCollector）
+                .addCollector(new BoardInfoCollector(this, "board"))            //主板信息（BoardInfoCollector）
+                .addCollector(new BatteryInfoCollector(this, "battery"))        //电池信息（BatteryInfoCollector）
+                .addCollector(new StorageInfoCollector(this, "storage"))        //存储信息（RAM & SD）（StorageInfoCollector）
+                .addCollector(new CameraInfoCollector(this, "camera", true))    //摄像头信息（CameraInfoCollector）
+                .addCollector(new ScreenInfoCollector(this, "screen"))          //屏幕信息（ScreenInfoCollector）
+                .addCollector(new UiInfoCollector(this, "ui"))                  //Ui信息（UiInfoCollector）
+                .addCollector(new SensorInfoCollector(this, "sensor"))          //传感器列表（SensorInfoCollector）
+                .addCollector(new NfcInfoCollector(this, "nfc"))                //NFC信息（NfcInfoCollector）
+                .addCollector(new SystemInfoCollector(this, "system"))          //系统相关信息（Build.prop等）
                 .autoStartManualCollection(true)
                 .bindListener(mDeviceInfoCollectListener)
                 .start();

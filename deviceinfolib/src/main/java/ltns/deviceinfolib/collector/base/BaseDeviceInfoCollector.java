@@ -12,8 +12,10 @@ import ltns.deviceinfolib.listener.CollectorStateObserver;
 import ltns.deviceinfolib.utils.PermissionsCheckUtils;
 
 /**
- * Created by guyuepeng on 2017/6/20.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description
+ * @version
  */
 
 public abstract class BaseDeviceInfoCollector {

@@ -3,8 +3,10 @@ package ltns.deviceinfolib.listener;
 import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 /**
- * Created by guyuepeng on 2017/6/22.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/1
+ * @author appzy
+ * @Description
+ * @version
  */
 
 public interface CollectorStateObserver {

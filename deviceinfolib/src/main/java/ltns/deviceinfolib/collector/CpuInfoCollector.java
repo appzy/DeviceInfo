@@ -19,8 +19,10 @@ import java.util.regex.Pattern;
 import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 /**
- * Created by guyuepeng on 2017/6/23.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description Cpu信息
+ * @version
  */
 
 public class CpuInfoCollector extends BaseDeviceInfoCollector {

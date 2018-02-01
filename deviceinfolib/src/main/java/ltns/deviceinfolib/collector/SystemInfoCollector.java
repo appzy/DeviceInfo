@@ -16,8 +16,10 @@ import java.util.List;
 import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 /**
- * Created by guyuepeng on 2017/6/27.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description 系统相关信息
+ * @version
  */
 
 public class SystemInfoCollector extends BaseDeviceInfoCollector {

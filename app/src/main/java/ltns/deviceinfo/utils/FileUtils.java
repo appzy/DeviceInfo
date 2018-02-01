@@ -5,8 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Created by guyuepeng on 2017/6/27.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description 保存到手机DeviceInfo文件目录
+ * @version
  */
 
 public class FileUtils {

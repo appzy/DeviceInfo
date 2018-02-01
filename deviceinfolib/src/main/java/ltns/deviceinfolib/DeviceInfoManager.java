@@ -17,8 +17,10 @@ import ltns.deviceinfolib.listener.DeviceInfoCollectListener;
 import ltns.deviceinfolib.utils.PermissionsCheckUtils;
 
 /**
- * Created by guyuepeng on 2017/6/20.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description android设备信息收集
+ * @version
  */
 
 public class DeviceInfoManager implements CollectorStateObserver {

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.guyuepeng'//替换成你的Github的用户名
+group='com.github.appzy'//替换成你的Github的用户名
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"

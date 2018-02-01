@@ -8,8 +8,10 @@ import android.content.IntentFilter;
 import ltns.deviceinfolib.collector.base.BaseDeviceInfoCollector;
 
 /**
- * Created by guyuepeng on 2017/6/23.
- * Email: gu.yuepeng@foxmail.com
+ * @date 创建时间：2018/1/8
+ * @author appzy
+ * @Description 电池信息
+ * @version
  */
 
 /**
