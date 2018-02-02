@@ -84,11 +84,11 @@ DeviceInfoManager.NewInstance(this)
 
 ### 添加依赖库
 
-[![](https://jitpack.io/v/guyuepeng/DeviceInfo.svg)](https://jitpack.io/#guyuepeng/DeviceInfo)
-[![GitHub issues](https://img.shields.io/github/issues/guyuepeng/DeviceInfo.svg)](https://github.com/appzy/DeviceInfo/issues)
+[![](https://jitpack.io/v/appzy/DeviceInfo.svg)](https://jitpack.io/#appzy/DeviceInfo)
+[![GitHub issues](https://img.shields.io/github/issues/appzy/DeviceInfo.svg)](https://github.com/appzy/DeviceInfo/issues)
 
 
-> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.3`，并不是 ~*xxx*~ （推荐使用最新版）
+> 库版本号 *version* 请看上方 **JitPack** 的最新版本号，如`v1.0.2`，并不是 ~*xxx*~ （推荐使用最新版）
 
 #### Gradle
 
