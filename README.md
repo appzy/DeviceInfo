@@ -307,10 +307,10 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
 
 ## 更新日志
 
-- 上传库，提供Sim&Board信息采集支持，更新README（2017.06.23）
-- 添加CPU、设备基本信息采集支持，更新Sim注释，发布v1.0.1（2017.06.23）
-- 添加更多信息采集模板类（Battery,NFC,Camera...），统一输出（Json）中key的命名规范（2017.06.26）
-- 添加了系统描述相关信息的采集，修改了Demo.apk中的Json的显示方式（2017.06.29）
+- 上传库，提供Sim&Board信息采集支持，更新README（2018.06.23）
+- 添加CPU、设备基本信息采集支持，更新Sim注释，发布v1.0.1（2018.06.23）
+- 添加更多信息采集模板类（Battery,NFC,Camera...），统一输出（Json）中key的命名规范（2018.06.26）
+- 添加了系统描述相关信息的采集，修改了Demo.apk中的Json的显示方式（2018.06.29）
 
 ## 感谢
 
