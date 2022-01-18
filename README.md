@@ -155,7 +155,7 @@ import android.content.Context;
  * @date 创建时间：2018/1/8
  * @author appzy
  * @Description
- * @version
+ * @version v1.0.1
  */
 
 public class DemoCollector extends BaseDeviceInfoCollector {
