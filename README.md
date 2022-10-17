@@ -6,10 +6,12 @@
 ### 功能
 
 采集Android设备信息，以Json形式输出
--Collect Android device information and output it in the form of Json
+
+Collect Android device information and output it in the form of Json
 
 可自由定制要采集的设备类型，显示的设备信息详情等
--You can freely customize the type of device to be collected, the details of the displayed device information, etc.
+
+You can freely customize the type of device to be collected, the details of the displayed device information, etc.
 
 ### 特性
 
@@ -321,3 +323,5 @@ BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, "board
 ## 扯扯淡
 - 源码地址：[https://github.com/appzy/DeviceInfo](https://github.com/appzy/DeviceInfo)
 - 如果觉得有用，欢迎Stars
+
+- If you find it useful, welcome to Stars
